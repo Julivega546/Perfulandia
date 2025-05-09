@@ -11,13 +11,16 @@ import java.util.List;
 @Service
 @Transactional
 public class ClienteService {
+
     @Autowired
     private ClienteRepository clienteRepository;
 
     public List<Cliente> findAll(){
-    return clienteRepository.findAll();
+
+        return clienteRepository.findAll();
     }
     public Cliente findById(long id){
+
         return clienteRepository.findById(id).get();
     }
 
