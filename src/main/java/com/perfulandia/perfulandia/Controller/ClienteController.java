@@ -40,21 +40,6 @@ public class ClienteController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<Cliente> actualizar (@PathVariable Integer id , @RequestBody Cliente cliente){
-       try {
-           Cliente cli = clienteService.findById(id);
-           cli.setId(id);
-           cli.setRun(cliente.getRun());
-           cli.setNombre(cliente.getNombre());
-           cli.setApellido(cliente.getApellido());
-           cli.setCorreo(cliente.getCorreo());
-           clienteService.save(cli);
-           return ResponseEntity.ok(cliente);
-       } catch (Exception e){
-           return ResponseEntity.notFound().build();
-       }
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id){
