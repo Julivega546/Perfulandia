@@ -25,10 +25,12 @@ public class ClienteService {
     }
 
     public Cliente save(Cliente cliente){
+
         return clienteRepository.save(cliente);
     }
 
     public void delete(long id){
+
         clienteRepository.deleteById(id);
     }
 }

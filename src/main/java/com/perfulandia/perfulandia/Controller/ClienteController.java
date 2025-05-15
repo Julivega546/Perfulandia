@@ -41,6 +41,23 @@ public class ClienteController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> actualizar(@PathVariable Integer id, @RequestBody Cliente cliente){
+        try {
+            Cliente cliente1 = clienteService.findById(id);
+            cliente1.setId(id);
+            cliente1.setRun(cliente.getRun());
+            cliente1.setNombre(cliente.getNombre());
+            cliente1.setApellido(cliente.getApellido());
+            cliente1.setCorreo(cliente.getCorreo());
+
+            clienteService.save(cliente1);
+            return ResponseEntity.ok(cliente);
+        } catch (Exception e) {
+            return  ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id){
         try {
