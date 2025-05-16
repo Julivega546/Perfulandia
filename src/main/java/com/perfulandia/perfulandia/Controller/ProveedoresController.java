@@ -46,6 +46,7 @@ public class ProveedoresController {
             proveedoresnuevo.setNombre(proveedoresnuevo.getNombre());
             proveedoresnuevo.setCorreo(proveedoresnuevo.getCorreo());
             proveedoresnuevo.setRun(proveedoresnuevo.getRun());
+            proveedoresnuevo.setNumero(proveedoresnuevo.getNumero());
 
 
 
