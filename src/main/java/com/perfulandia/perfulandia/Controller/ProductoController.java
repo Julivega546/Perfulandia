@@ -51,6 +51,7 @@ public class ProductoController{
             productonuevo.setId(productonuevo.getId());
             productonuevo.setPrecio(productonuevo.getPrecio());
             productonuevo.setNombre(productonuevo.getNombre());
+            productonuevo.setStock(productonuevo.getStock());
 
 
             productoService.save(productonuevo);
