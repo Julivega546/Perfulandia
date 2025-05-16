@@ -2,8 +2,10 @@ package com.perfulandia.perfulandia.Controller;
 
 
 import com.perfulandia.perfulandia.Service.ProveedorService;
+import com.perfulandia.perfulandia.model.Cliente;
 import com.perfulandia.perfulandia.model.Proveedores;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,11 @@ public class ProveedoresController {
     @Autowired
     private ProveedorService proveedorService;
 
+    @PostMapping
+    public ResponseEntity<Proveedores> guardar(@RequestBody Proveedores proveedores){
+        Proveedores proveedoresnuevo =proveedorService.save(proveedores);
+        return ResponseEntity.status(HttpStatus.CREATED).body(proveedoresnuevo);
+    }
 
 
     @GetMapping("/{id}")
