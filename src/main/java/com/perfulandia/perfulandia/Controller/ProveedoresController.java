@@ -2,7 +2,6 @@ package com.perfulandia.perfulandia.Controller;
 
 
 import com.perfulandia.perfulandia.Service.ProveedorService;
-import com.perfulandia.perfulandia.model.Producto;
 import com.perfulandia.perfulandia.model.Proveedores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +37,7 @@ public class ProveedoresController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizar(@PathVariable Integer id, @RequestBody Producto producto){
+    public ResponseEntity<Proveedores> actualizar(@PathVariable Integer id, @RequestBody Proveedores proveedores){
         try {
             Proveedores proveedoresnuevo = proveedorService.findById(id.longValue());
             proveedoresnuevo.setApellido(proveedoresnuevo.getApellido());
@@ -52,7 +51,7 @@ public class ProveedoresController {
 
 
             proveedorService.save(proveedoresnuevo);
-            return ResponseEntity.ok(producto);
+            return ResponseEntity.ok(proveedores);
         } catch (Exception e) {
             return  ResponseEntity.notFound().build();
         }
