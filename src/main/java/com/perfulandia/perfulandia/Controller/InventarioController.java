@@ -62,6 +62,7 @@ public class InventarioController {
             inventario1.setId(inventario1.getId());
             inventario1.setProducto(inventario1.getProducto());
             inventario1.setTipoMovimiento(inventario1.getTipoMovimiento());
+            inventario1.setFechaMovimiento(inventario1.getFechaMovimiento());
 
             inventarioService.save(inventario1);
             return ResponseEntity.ok(inventario);

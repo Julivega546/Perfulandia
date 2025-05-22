@@ -60,7 +60,6 @@ public class ProveedoresController {
     public ResponseEntity<Proveedores> actualizar(@PathVariable Integer id, @RequestBody Proveedores proveedores){
         try {
             Proveedores proveedoresnuevo = proveedorService.findById(id.longValue());
-            proveedoresnuevo.setApellido(proveedoresnuevo.getApellido());
             proveedoresnuevo.setId(proveedoresnuevo.getId());
             proveedoresnuevo.setDireccion(proveedoresnuevo.getDireccion());
             proveedoresnuevo.setNombre(proveedoresnuevo.getNombre());

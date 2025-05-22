@@ -23,9 +23,6 @@ public class Proveedores {
     private String nombre;
 
     @Column(nullable = false)
-    private String apellido;
-
-    @Column(nullable = false)
     private String correo;
 
     @Column (nullable = false)
