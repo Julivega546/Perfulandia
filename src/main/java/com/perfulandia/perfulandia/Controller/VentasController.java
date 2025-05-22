@@ -2,6 +2,7 @@ package com.perfulandia.perfulandia.Controller;
 
 
 import com.perfulandia.perfulandia.Service.VentasService;
+import com.perfulandia.perfulandia.model.Inventario;
 import com.perfulandia.perfulandia.model.Ventas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,16 @@ import java.util.List;
 public class VentasController {
     @Autowired
     private VentasService ventasService;
+
+
+    @GetMapping
+    public ResponseEntity<List<Ventas>> listar() {
+        List<Ventas> ventas = ventasService.findall();
+        if (ventas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(ventas);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Ventas> actualizar(@PathVariable Integer id, @RequestBody Ventas ventas){

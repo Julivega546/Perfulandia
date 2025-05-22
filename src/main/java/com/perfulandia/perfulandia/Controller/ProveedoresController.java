@@ -3,17 +3,30 @@ package com.perfulandia.perfulandia.Controller;
 
 import com.perfulandia.perfulandia.Service.ProveedorService;
 import com.perfulandia.perfulandia.model.Cliente;
+import com.perfulandia.perfulandia.model.Inventario;
 import com.perfulandia.perfulandia.model.Proveedores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1/Proveedores")
+@RequestMapping("/api/v1/proveedores")
 public class ProveedoresController {
     @Autowired
     private ProveedorService proveedorService;
+
+
+    @GetMapping
+    public ResponseEntity<List<Proveedores>> listar() {
+        List<Proveedores> proveedores = proveedorService.findall();
+        if (proveedores.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(proveedores);
+    }
 
     @PostMapping
     public ResponseEntity<Proveedores> guardar(@RequestBody Proveedores proveedores){

@@ -8,11 +8,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1/Inventario")
+@RequestMapping("/api/v1/inventario")
 public class InventarioController {
     @Autowired
     private InventarioService inventarioService;
+
+
+
+    @GetMapping
+    public ResponseEntity<List<Inventario>> listar() {
+        List<Inventario> inventario = inventarioService.findall();
+        if (inventario.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(inventario);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Inventario> buscar(@PathVariable Long id){
@@ -49,9 +62,6 @@ public class InventarioController {
             inventario1.setId(inventario1.getId());
             inventario1.setProducto(inventario1.getProducto());
             inventario1.setTipoMovimiento(inventario1.getTipoMovimiento());
-
-
-
 
             inventarioService.save(inventario1);
             return ResponseEntity.ok(inventario);
