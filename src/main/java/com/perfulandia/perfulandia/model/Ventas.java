@@ -33,4 +33,5 @@ public class Ventas {
     @Column(nullable = false)
     private Integer total;
 
+
 }
