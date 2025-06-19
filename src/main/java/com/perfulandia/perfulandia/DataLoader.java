@@ -1,6 +1,5 @@
 package com.perfulandia.perfulandia;
 
-
 import com.perfulandia.perfulandia.model.*;
 import com.perfulandia.perfulandia.repository.*;
 import net.datafaker.Faker;
@@ -29,49 +28,62 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Faker faker = new Faker();
+        Faker faker = new Faker(new Random());
         Random random = new Random();
 
-
+        // Crear proveedores
         for (int i = 0; i < 5; i++) {
             Proveedores proveedor = new Proveedores();
+            proveedor.setRun(faker.idNumber().valid());
             proveedor.setNombre(faker.company().name());
             proveedor.setCorreo(faker.internet().emailAddress());
+            proveedor.setDireccion(faker.address().fullAddress());
+            proveedor.setNumero(faker.phoneNumber().cellPhone());
             proveedoresRepository.save(proveedor);
         }
 
-
-        for (int i = 0; i < 20; i++) {
+        // Crear productos
+        for (int i = 0; i < 15; i++) {
             Producto producto = new Producto();
             producto.setNombre(faker.commerce().productName());
             producto.setDescripcion(faker.lorem().sentence());
-            producto.setPrecio((int) faker.number().randomDouble(2, 1000, 10000));
+            producto.setPrecio(faker.number().numberBetween(1000, 10000));
+            producto.setStock(faker.number().numberBetween(10, 100));
             productoRepository.save(producto);
         }
 
-
+        // Crear inventario
         for (Producto producto : productoRepository.findAll()) {
             Inventario inventario = new Inventario();
             inventario.setProducto(producto);
-            inventario.setCantidad(faker.number().numberBetween(10, 100));
+            inventario.setCantidad(faker.number().numberBetween(10, 50));
+            inventario.setTipoMovimiento("Ingreso");
+            inventario.setFechaMovimiento(new Date());
             inventarioRepository.save(inventario);
         }
 
-
+        // Crear clientes
         for (int i = 0; i < 10; i++) {
             Cliente cliente = new Cliente();
-            cliente.setNombre(faker.name().fullName());
+            cliente.setRun(faker.idNumber().valid());
+            cliente.setNombre(faker.name().firstName());
+            cliente.setApellido(faker.name().lastName());
             cliente.setCorreo(faker.internet().emailAddress());
             clienteRepository.save(cliente);
         }
 
+        // Crear ventas
+        for (int i = 0; i < 20; i++) {
+            Cliente cliente = clienteRepository.findAll().get(random.nextInt((int) clienteRepository.count()));
+            Producto producto = productoRepository.findAll().get(random.nextInt((int) productoRepository.count()));
+            int cantidad = faker.number().numberBetween(1, 5);
 
-        for (int i = 0; i < 15; i++) {
             Ventas venta = new Ventas();
-            venta.setNombreCliente(clienteRepository.findAll().get(random.nextInt(10)));
-            venta.setTotal(faker.number().numberBetween(1, 5));
             venta.setFechaVenta(new Date());
-
+            venta.setRunCliente(cliente.getRun());
+            venta.setNombreCliente(cliente.getNombre() + " " + cliente.getApellido());
+            venta.setCantidad(cantidad);
+            venta.setTotal(producto.getPrecio() * cantidad);
             ventasRepository.save(venta);
         }
     }

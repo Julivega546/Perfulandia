@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "ventas")
@@ -36,7 +35,7 @@ public class Ventas {
     @Column (nullable = false)
     private Integer cantidad;
 
-    public void setNombreCliente(Cliente cliente) {
+    public void setNombreCliente(String cliente) {
 
     }
 
