@@ -33,5 +33,12 @@ public class Ventas {
     @Column(nullable = false)
     private Integer total;
 
+    @Column (nullable = false)
+    private Integer cantidad;
+
+    public void setNombreCliente(Cliente cliente) {
+
+    }
+
 
 }
